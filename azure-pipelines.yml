@@ -19,11 +19,11 @@ variables:
   tag: 'latest'
 
 stages:
-- stage: Build
+- stage: Build-backend
   displayName: Build and push backend-stage
   jobs:
   - job: Build
-    displayName: Build
+    displayName: Build backend
     pool:
       name: local
     steps:
@@ -37,11 +37,11 @@ stages:
         tags: |
           $(tag)
 
-- stage: Build
+- stage: Build-frontend
   displayName: Build and push frontend-stage
   jobs:
   - job: Build
-    displayName: Build
+    displayName: Build frontend
     pool:
       name: local
     steps:
