@@ -1,43 +1,9 @@
 services:
-    db:
-        image: mysql:latest
-        
-        container_name: db
-        ports:
-            - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
-        networks:
-             - DS_SQL_NODE
-        volumes:
-            - database-12:/var/lib/mysql
-        expose:
-            - "$MYSQL_DOCKER_PORT"
-        env_file: ./.env
-
-    backend:
-        depends_on:
-            - db
-        env_file: ./.env
-        build:
-            context: ./DS2022_30442_Rusu_David_1_Backend
-            dockerfile: ./Dockerfile
-        container_name: backend
-        restart: on-failure
-        ports:
-            - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
-        networks:
-            - DS_SQL_NODE
-        expose:
-            - $NODE_DOCKER_PORT
-        links:
-            - db
-
-    frontend:
+       frontend:
         build:
             context: ./ds2022_30442_rusu_david_1_frontend
             dockerfile: ./Dockerfile
-        depends_on:
-            - db
-            - backend
+ 
         env_file: ./.env
         container_name: frontend
         ports:
