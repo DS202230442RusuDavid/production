@@ -20,11 +20,11 @@ variables:
 
 
 stages:
-- stage: Build_backend
-  displayName: Build and push backend-stage
+- stage: Build_backend_frontend
+  displayName: Build and push backend/frontend-stage
   jobs:
   - job: Build
-    displayName: Build backend
+    displayName: Build
     pool:
       name: local
     steps:
@@ -37,15 +37,6 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-
-- stage: Build_frontend
-  displayName: Build and push frontend-stage
-  jobs:
-  - job: Build
-    displayName: Build frontend
-    pool:
-      name: local
-    steps:
     - task: Docker@2
       displayName: Build and push frontend image to container registry
       inputs:
