@@ -9,8 +9,8 @@ services:
             - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
         networks:
              - DS_SQL_NODE
-        volumes:
-            - database-12:/var/lib/mysql
+        # volumes:
+            # - database-12:/var/lib/mysql
         expose:
             - "$MYSQL_DOCKER_PORT"
         env_file: ./.env
@@ -54,5 +54,5 @@ networks:
         driver: bridge
         name: DS_SQL_NODE
 
-volumes:
-    database-12: { }
+# volumes:
+    # database-12: { }
