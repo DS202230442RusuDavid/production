@@ -10,13 +10,14 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'cb8d7d94-9979-4dc0-8737-7ea7317a97b6'
+  dockerRegistryServiceConnection: '5376f3c6-326a-47ae-82e0-e0c329ed7e0e'
   frontendImageRepository: 'dsrusudavidproduction-frontend'
   backendImageRepository: 'dsrusudavidproduction-backend'
-  containerRegistry: 'containerregistrydavid30442.azurecr.io'
+  containerRegistry: 'containerregistrydavidr30442.azurecr.io'
   frontendDockerfilePath: '$(Build.SourcesDirectory)/ds2022_30442_rusu_david_1_frontend/Dockerfile'
   backendDockerfilePath: '$(Build.SourcesDirectory)/DS2022_30442_Rusu_David_1_Backend/Dockerfile'
   tag: 'latest'
+
 
 stages:
 - stage: Build_backend
