@@ -2,12 +2,10 @@ import axios from "axios";
 import Role from "../dtos/role.dto";
 import User from "../dtos/user.dto";
 
-const ip = process.env.backendIP || "";
-
 export const register = async (email: string, password: string, role: Role) => {
     console.log({ email, password, role });
     try {
-        const response = await axios.post(ip + "/authentication/register", {
+        const response = await axios.post("/authentication/register", {
             email,
             password,
             role,
@@ -25,7 +23,7 @@ export const login = async (
     ) => {
     try {
         const res = await axios.post(
-            ip +  "/authentication/log-in",
+            "/authentication/log-in",
             { email, password },
             { withCredentials: true }
         );
@@ -40,7 +38,7 @@ export const login = async (
 
 export const logout = async () => {
     try {
-        const res = await axios.post(ip + "/authentication/log-out", {
+        const res = await axios.post("/authentication/log-out", {
             withCredentials: true,
         });
         localStorage.setItem("user","{}")
