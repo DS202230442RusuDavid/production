@@ -4,7 +4,7 @@ module.exports = function(app) {
     '/',
     createProxyMiddleware({
       target: process.env.backendIP || "http://localhost:3000",
-      changeOrigin: true,
+      // changeOrigin: true,
     })
   );
 };
