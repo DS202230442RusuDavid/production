@@ -1,10 +1,12 @@
 import axios from "axios";
 import Energy from "../dtos/energy.dto";
 
+const ip = process.env.backendIP || "";
+
 export const getEnergy = async (id: number) => {
     var config = {
         method: "post",
-        url: "/energy/getEnergy",
+        url: ip + "/energy/getEnergy",
         data: { "device.id": id },
     };
     
@@ -22,7 +24,7 @@ export const getDeviceEnergy = async (id: number) => {
     console.log(id);
     var config = {
         method: "post",
-        url: "/energy/getEnergy",
+        url: ip + "/energy/getEnergy",
         data: { "device.id": id },
     };
 
