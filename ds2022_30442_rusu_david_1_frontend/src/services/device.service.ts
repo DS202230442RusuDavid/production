@@ -2,12 +2,10 @@ import axios from "axios";
 import Device from "../dtos/device.dto";
 import User from "../dtos/user.dto";
 
-const ip = process.env.backendIP || "";
-
 export const getUserDevices = async (user: User) => {
   var config = {
     method: "post",
-    url: ip + "/device/getDevices",
+    url: "/device/getDevices",
     data: { "user.id": user.id },
   };
 
@@ -24,7 +22,7 @@ export const getUserDevices = async (user: User) => {
 export const getDevice = async (id: number) => {
   var config = {
     method: "post",
-    url: ip + "/device/getDevices",
+    url: "/device/getDevices",
     data: { id: id },
   };
 
@@ -41,7 +39,7 @@ export const getDevice = async (id: number) => {
 export const getUnassignedDevices = async () => {
   var config = {
     method: "post",
-    url: ip + "/device/getDevices",
+    url: "/device/getDevices",
     data: { "user.id": null },
   };
 
@@ -58,7 +56,7 @@ export const getUnassignedDevices = async () => {
 export const getAllDevices = async () => {
   var config = {
     method: "post",
-    url: ip + "/device/getDevices",
+    url: "/device/getDevices",
     data: {},
   };
 
@@ -75,7 +73,7 @@ export const getAllDevices = async () => {
 export const updateDevice = async (device: Device, user?: User) => {
   var config = {
     method: "patch",
-    url: ip + "/device/",
+    url: "/device/",
     data: user?{ ...device,maximumHourlyConsumption: Number(device.maximumHourlyConsumption) ,"userId": user.id }:{ ...device,maximumHourlyConsumption: Number(device.maximumHourlyConsumption)},
   };
 
@@ -95,7 +93,7 @@ export const updateDevice = async (device: Device, user?: User) => {
 export const createDevice = async (device: Device) => {
   var config = {
     method: "post",
-    url: ip + "/device/",
+    url: "/device/",
     data: {...device, maximumHourlyConsumption: Number(device.maximumHourlyConsumption)},
   };
 
@@ -115,7 +113,7 @@ export const deleteDevice = async (device: Device) => {
   console.log(device);
   var config = {
     method: "delete",
-    url: ip + "/device/",
+    url: "/device/",
     data: { id: device.id },
   };
 
