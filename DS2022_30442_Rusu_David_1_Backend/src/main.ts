@@ -16,7 +16,7 @@ async function bootstrap() {
   app.enableCors({
     origin: serverIP,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    preflightContinue: false,
+    allowedHeaders: 'Access-Control-Allow-Origin',
     credentials: true,
   });
 }
