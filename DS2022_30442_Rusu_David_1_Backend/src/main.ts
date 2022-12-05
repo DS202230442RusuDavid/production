@@ -2,22 +2,23 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
+var ip = require('what-is-my-ip-address');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
  
   app.useGlobalPipes(new ValidationPipe());
-
   app.use(cookieParser());
-  await app.listen(3000);
-
-  const serverIP = await app.getUrl();
-  console.log("APP IS RUNNING ON: " + serverIP);
+  
+  const publicIP = await ip.v4();
+  console.log("PUBLIC IP IS: " + publicIP);
   app.enableCors({
-    origin: serverIP,
+    origin: publicIP,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: 'Access-Control-Allow-Origin',
     credentials: true,
   });
+
+  await app.listen(3000);
 }
 bootstrap();
