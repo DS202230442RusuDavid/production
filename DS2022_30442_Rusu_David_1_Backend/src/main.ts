@@ -2,10 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
 let extIP = require("ext-ip")();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true
+  });
+  // const app = await NestFactory.create(AppModule);
  
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
@@ -18,11 +22,11 @@ async function bootstrap() {
   //   credentials: true,
   // });
 
-  app.enableCors({
-    allowedHeaders: ['content-type','Access-Control-Expose-Headers','Access-Control-Allow-Methods','Access-Control-Allow-Headers'],
-    origin: '*',
-    credentials: true,
-  });
+  // app.enableCors({
+  //   allowedHeaders: ['content-type','Access-Control-Expose-Headers','Access-Control-Allow-Methods','Access-Control-Allow-Headers'],
+  //   origin: '*',
+  //   credentials: true,
+  // });
 
   await app.listen(3000);
 }
