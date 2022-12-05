@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
-var ip = require('what-is-my-ip-address');
+let extIP = require("ext-ip")();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,7 +10,8 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
   
-  const publicIP = await ip.v4();
+
+  const publicIP = await extIP.get();
   console.log("PUBLIC IP IS: " + publicIP);
   app.enableCors({
     origin: publicIP,
