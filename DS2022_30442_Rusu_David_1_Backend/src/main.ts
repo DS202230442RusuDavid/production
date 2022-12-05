@@ -14,8 +14,6 @@ async function bootstrap() {
   console.log("PUBLIC IP IS: " + publicIP);
   app.enableCors({
     origin: publicIP,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: 'Access-Control-Allow-Origin',
     credentials: true,
   });
 
