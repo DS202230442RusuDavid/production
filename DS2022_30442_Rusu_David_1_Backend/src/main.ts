@@ -11,10 +11,16 @@ async function bootstrap() {
   app.use(cookieParser());
   
 
-  const publicIP = await extIP.get();
-  console.log("PUBLIC IP IS: " + publicIP);
+  // const publicIP = await extIP.get();
+  // console.log("PUBLIC IP IS: " + publicIP);
+  // app.enableCors({
+  //   origin: publicIP,
+  //   credentials: true,
+  // });
+
   app.enableCors({
-    origin: publicIP,
+    allowedHeaders: ['content-type','Access-Control-Expose-Headers','Access-Control-Allow-Methods','Access-Control-Allow-Headers'],
+    origin: 'http://localhost:4000',
     credentials: true,
   });
 
