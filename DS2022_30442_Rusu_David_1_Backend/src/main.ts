@@ -11,11 +11,14 @@ async function bootstrap() {
   
 
   app.enableCors({
-    allowedHeaders: '*',
+    allowedHeaders:"*",
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     origin: ['http://int32.duckdns.org:4000/'],
     credentials: true,
     preflightContinue: true
   });
+
+  
 
   await app.listen(3000);
 }
