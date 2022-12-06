@@ -40,8 +40,7 @@ export default class LoginRegisterForm extends React.Component<Props> {
     login = async () => {
             const rez = await login(this.state.formData.email, this.state.formData.password);
             if (rez) {
-                // window.location.href = "/home";
-                alert("ok");
+                window.location.href = "/home";
             } else {
                 alert("Wrong credentials");
                 this.setState({ submitted: false });
