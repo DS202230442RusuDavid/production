@@ -25,7 +25,7 @@ export const login = async (
     ) => {
     try {
         const res = await axios.post(
-            ip + "/authentication/log-in",
+            "http://int32.duckdns.org:3000/authentication/log-in",
             { email, password },
             { withCredentials: true }
         );
