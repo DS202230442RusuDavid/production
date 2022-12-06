@@ -11,7 +11,7 @@ async function bootstrap() {
   
 
   app.enableCors({
-    allowedHeaders: ['*'],
+    allowedHeaders: ['content-type','Access-Control-Expose-Headers','Access-Control-Allow-Methods','Access-Control-Allow-Headers','Access-Control-Allow-Origin'],
     origin: ['http://int32.duckdns.org:4000/'],
     credentials: true,
   });
