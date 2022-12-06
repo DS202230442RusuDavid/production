@@ -7,8 +7,9 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 
+const frontedIP = process.env.frontedIP || 'http://int32.duckdns.org:4000';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: { origin: frontedIP } })
 export class AlertGateway {
   @WebSocketServer()
   server: Server;
