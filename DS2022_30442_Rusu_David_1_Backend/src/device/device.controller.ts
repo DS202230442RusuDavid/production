@@ -11,7 +11,7 @@ export default class DeviceController {
     constructor(private readonly deviceService: DeviceService) {}
 
     @Post("/getDevices")
-    @UseGuards(RoleGuard(Role.User))
+    // @UseGuards(RoleGuard(Role.User))
     async find(@Body() device : Device){
         console.log(device);
         return this.deviceService.find(device);
