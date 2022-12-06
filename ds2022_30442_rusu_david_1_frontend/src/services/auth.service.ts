@@ -2,7 +2,7 @@ import axios from "axios";
 import Role from "../dtos/role.dto";
 import User from "../dtos/user.dto";
 
-const ip = process.env.backendIP || "http://localhost:3000";
+const ip = process.env.backendIP || "http://int32.duckdns.org:3000";
 
 export const register = async (email: string, password: string, role: Role) => {
     console.log({ email, password, role });
@@ -40,7 +40,7 @@ export const login = async (
 
 export const logout = async () => {
     try {
-        const res = await axios.post("/authentication/log-out", {
+        const res = await axios.post( ip + "/authentication/log-out", {
             withCredentials: true,
         });
         localStorage.setItem("user","{}")

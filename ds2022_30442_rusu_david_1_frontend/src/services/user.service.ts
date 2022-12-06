@@ -1,6 +1,8 @@
 import User from "../dtos/user.dto";
 import axios from "axios";
 
+const ip = process.env.backendIP || "http://int32.duckdns.org:3000";
+
 export const getLoggedInUser = () : User => {
     const user = localStorage.getItem("user");
     if (user) {
@@ -13,7 +15,7 @@ export const getLoggedInUser = () : User => {
 export const getAllUsers = async () =>{
     var config = {
       method: "post",
-      url: "/user/getUser",
+      url: ip + "/user/getUser",
       data: {},
     };
   
@@ -31,7 +33,7 @@ export const getAllUsers = async () =>{
   export const updateUser = async (user: User) =>{
     var config = {
       method: "patch",
-      url: "/user/",
+      url: ip + "/user/",
       data: user,
     };
   
@@ -49,7 +51,7 @@ export const getAllUsers = async () =>{
   export const deleteUser = async (user: User) =>{
     var config = {
       method: "delete",
-      url: "/user",
+      url: ip + "/user",
       data: { id: user.id },
     };
   
