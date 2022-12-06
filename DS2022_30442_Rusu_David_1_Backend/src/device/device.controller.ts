@@ -18,7 +18,7 @@ export default class DeviceController {
     }
 
     @Post()
-    @UseGuards(RoleGuard(Role.Admin))
+    // @UseGuards(RoleGuard(Role.Admin))
     async create(@Body() device: CreateDeviceDto){
         return this.deviceService.create(device);
     }
