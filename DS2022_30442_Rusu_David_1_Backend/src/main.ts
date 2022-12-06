@@ -7,8 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
    app.enableCors({
+    origin: 'http://int32.duckdns.org:4000/',
     allowedHeaders: ['Content-Type', 'Authorization'],
-    origin: ['http://int32.duckdns.org:4000/','http://int32.duckdns.org:3000/','http://int32.duckdns.org:8000/','http://int32.duckdns.org'],
     credentials: true,
   });
 
