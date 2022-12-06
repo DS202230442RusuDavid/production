@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { useState, useEffect } from "react";
 import { getUserDevices } from "../services/device.service";
 
-const socket = io(process.env.websocket || "");
+const socket = io(process.env.websocket || "http://int32.duckdns.org:3000");
 
 const DeviceConsumptionPopUp =  () => {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -23,6 +23,7 @@ const DeviceConsumptionPopUp =  () => {
     }] = [{deviceId:-1}];
     useEffect(() => {
       socket.on('connect', () => {
+        console.log("websocket connected");
         setIsConnected(true);
       });
   
