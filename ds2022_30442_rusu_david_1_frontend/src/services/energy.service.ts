@@ -7,6 +7,7 @@ export const getEnergy = async (id: number) => {
     var config = {
         method: "post",
         url: ip + "/energy/getEnergy",
+        withCredentials: true,
         data: { "device.id": id },
     };
     
@@ -25,6 +26,7 @@ export const getDeviceEnergy = async (id: number) => {
     var config = {
         method: "post",
         url: ip + "/energy/getEnergy",
+        withCredentials: true,
         data: { "device.id": id },
     };
 

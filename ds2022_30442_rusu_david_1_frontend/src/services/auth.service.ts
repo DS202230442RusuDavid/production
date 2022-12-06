@@ -43,7 +43,7 @@ export const login = async (
 export const logout = async () => {
     try {
         const res = await axios.post( ip + "/authentication/log-out", {
-            withCredentials: true,
+            // withCredentials: true,
         });
         localStorage.setItem("user","{}")
         return res;

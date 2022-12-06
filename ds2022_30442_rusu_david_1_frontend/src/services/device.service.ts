@@ -25,6 +25,7 @@ export const getUserDevices = async (user: User) => {
 export const getDevice = async (id: number) => {
   var config = {
     method: "post",
+    withCredentials: true,
     url: ip + "/device/getDevices",
     data: { id: id },
   };
@@ -43,6 +44,7 @@ export const getUnassignedDevices = async () => {
   var config = {
     method: "post",
     url: ip + "/device/getDevices",
+    withCredentials: true,
     data: { "user.id": null },
   };
 
@@ -60,6 +62,7 @@ export const getAllDevices = async () => {
   var config = {
     method: "post",
     url: ip + "/device/getDevices",
+    withCredentials: true,
     data: {},
   };
 
@@ -77,6 +80,7 @@ export const updateDevice = async (device: Device, user?: User) => {
   var config = {
     method: "patch",
     url: ip + "/device/",
+    withCredentials: true,
     data: user?{ ...device,maximumHourlyConsumption: Number(device.maximumHourlyConsumption) ,"userId": user.id }:{ ...device,maximumHourlyConsumption: Number(device.maximumHourlyConsumption)},
   };
 
@@ -118,6 +122,7 @@ export const deleteDevice = async (device: Device) => {
   var config = {
     method: "delete",
     url: ip + "/device/",
+    withCredentials: true,
     data: { id: device.id },
   };
 

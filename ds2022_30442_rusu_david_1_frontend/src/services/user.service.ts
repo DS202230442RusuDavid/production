@@ -16,6 +16,7 @@ export const getAllUsers = async () =>{
     var config = {
       method: "post",
       url: ip + "/user/getUser",
+      withCredentials: true,
       data: {},
     };
   
@@ -34,6 +35,7 @@ export const getAllUsers = async () =>{
     var config = {
       method: "patch",
       url: ip + "/user/",
+      withCredentials: true,
       data: user,
     };
   
@@ -52,6 +54,7 @@ export const getAllUsers = async () =>{
     var config = {
       method: "delete",
       url: ip + "/user",
+      withCredentials: true,
       data: { id: user.id },
     };
   
