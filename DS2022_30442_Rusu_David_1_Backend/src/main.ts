@@ -10,6 +10,8 @@ async function bootstrap() {
     origin: 'http://int32.duckdns.org:4000/',
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 200,
   });
 
   app.useGlobalPipes(new ValidationPipe());
