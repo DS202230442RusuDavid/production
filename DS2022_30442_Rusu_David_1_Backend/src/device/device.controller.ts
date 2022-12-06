@@ -11,14 +11,14 @@ export default class DeviceController {
     constructor(private readonly deviceService: DeviceService) {}
 
     @Post("/getDevices")
-    // @UseGuards(RoleGuard(Role.User))
+    @UseGuards(RoleGuard(Role.User))
     async find(@Body() device : Device){
         console.log(device);
         return this.deviceService.find(device);
     }
 
     @Post()
-    // @UseGuards(RoleGuard(Role.Admin))
+    @UseGuards(RoleGuard(Role.Admin))
     async create(@Body() device: CreateDeviceDto){
         return this.deviceService.create(device);
     }

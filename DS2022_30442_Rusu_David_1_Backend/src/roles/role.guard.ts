@@ -4,9 +4,10 @@ import RequestWithUser from '../authentification/requestWithUser.interface';
 import JwtAuthenticationGuard from '../authentification/jwt-authentication.guard';
 
 const RoleGuard = (role: Role): Type<CanActivate> => {
-  class RoleGuardMixin extends JwtAuthenticationGuard {
+  // class RoleGuardMixin extends JwtAuthenticationGuard {
+  class RoleGuardMixin  {
     async canActivate(context: ExecutionContext) {
-      await super.canActivate(context);
+      // await super.canActivate(context);
  
       const request = context.switchToHttp().getRequest<RequestWithUser>();
       const user = request.user;
