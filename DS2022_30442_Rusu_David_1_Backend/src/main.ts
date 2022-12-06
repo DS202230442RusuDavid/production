@@ -11,9 +11,10 @@ async function bootstrap() {
   
 
   app.enableCors({
-    allowedHeaders: ['content-type','Access-Control-Expose-Headers','Access-Control-Allow-Methods','Access-Control-Allow-Headers','Access-Control-Allow-Origin'],
+    allowedHeaders: '*',
     origin: ['http://int32.duckdns.org:4000/'],
     credentials: true,
+    preflightContinue: true
   });
 
   await app.listen(3000);
