@@ -5,19 +5,16 @@ import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
- 
+
+   app.enableCors({
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    origin: ['http://int32.duckdns.org:4000/','http://int32.duckdns.org:3000/','http://int32.duckdns.org:8000/','http://int32.duckdns.org'],
+    credentials: true,
+  });
+
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
 
-  app.enableCors({
-    // allowedHeaders:"*",
-    // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    origin: ['http://int32.duckdns.org:4000/'],
-    credentials: true,
-    // preflightContinue: true
-  });
-
-  
 
   await app.listen(3000);
 }
