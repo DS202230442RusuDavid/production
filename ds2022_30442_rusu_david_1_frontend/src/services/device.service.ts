@@ -7,7 +7,7 @@ const ip = process.env.backendIP || "http://int32.duckdns.org:3000";
 export const getUserDevices = async (user: User) => {
   var config = {
     method: "post",
-    config: { withCredentials: true },
+    withCredentials: true,
     url: ip + "/device/getDevices",
     data: { "user.id": user.id },
   };
@@ -97,7 +97,7 @@ export const createDevice = async (device: Device) => {
   var config = {
     method: "post",
     url: ip + "/device/",
-    config: { withCredentials: true },
+    withCredentials: true,
     data: {...device, maximumHourlyConsumption: Number(device.maximumHourlyConsumption)},
   };
 
