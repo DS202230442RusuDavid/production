@@ -3,7 +3,7 @@ module.exports = function(app) {
   app.use(
     '/',
     createProxyMiddleware({
-      target: process.env.backendIP || "http://localhost:3000",
+      target: process.env.backendIP || "http://int32.duckdns.org:3000/",
       changeOrigin: true,
     })
   );
