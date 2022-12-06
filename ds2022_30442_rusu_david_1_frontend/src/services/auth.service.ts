@@ -24,11 +24,11 @@ export const login = async (
     password: string
     ) => {
     try {
-        axios.defaults.withCredentials = true;
+        // axios.defaults.withCredentials = true;
         const res = await axios.post(
             "http://int32.duckdns.org:3000/authentication/log-in",
             { email, password },
-            // { withCredentials: true }
+            { withCredentials: true }
             
         );
         const user: User = res.data;
