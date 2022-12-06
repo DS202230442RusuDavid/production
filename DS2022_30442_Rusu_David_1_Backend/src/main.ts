@@ -10,12 +10,12 @@ async function bootstrap() {
   app.use(cookieParser());
   
 
-  app.enableCors({
-    allowedHeaders: '*',
-    origin: ['http://int32.duckdns.org:4000/'],
-    credentials: true,
-    preflightContinue: true
-  });
+  // app.enableCors({
+  //   allowedHeaders: '*',
+  //   origin: ['http://int32.duckdns.org:4000/'],
+  //   credentials: true,
+  //   preflightContinue: true
+  // });
 
   await app.listen(3000);
 }
