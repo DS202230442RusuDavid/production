@@ -8,7 +8,7 @@ export const gRPCOptions : GrpcOptions  = {
     options: {
       package: "chat",
       protoPath: PROTO_PATH,
-      // url: '0.0.0.0:9090',
-      url: 'http://grpcproxy.duckdns.org:9090'
+      url: '0.0.0.0:9090',
+      //url: 'http://grpcproxy.duckdns.org:9090'
 },
   }

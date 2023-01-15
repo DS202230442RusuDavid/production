@@ -1,8 +1,8 @@
 import User from "../dtos/user.dto";
 import axios from "axios";
 
-const ip = process.env.backendIP || "http://int32.duckdns.org:3000";
-// const ip = "http://localhost:3000"
+// const ip = process.env.backendIP || "http://int32.duckdns.org:3000";
+const ip = "http://localhost:3000"
 
 export const getLoggedInUser = () : User => {
     const user = localStorage.getItem("user");

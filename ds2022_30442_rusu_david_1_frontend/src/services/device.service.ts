@@ -2,8 +2,8 @@ import axios from "axios";
 import Device from "../dtos/device.dto";
 import User from "../dtos/user.dto";
 
-const ip = process.env.backendIP || "http://int32.duckdns.org:3000";
-// const ip = "http://localhost:3000"
+// const ip = process.env.backendIP || "http://int32.duckdns.org:3000";
+const ip = "http://localhost:3000"
 
 export const getUserDevices = async (user: User) => {
   var config = {

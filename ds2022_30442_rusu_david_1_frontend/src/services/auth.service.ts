@@ -2,8 +2,8 @@ import axios from "axios";
 import Role from "../dtos/role.dto";
 import User from "../dtos/user.dto";
 
-const ip = process.env.backendIP || "http://int32.duckdns.org:3000";
-// const ip = "http://localhost:3000"
+// const ip = process.env.backendIP || "http://int32.duckdns.org:3000";
+const ip = "http://localhost:3000"
 export const register = async (email: string, password: string, role: Role) => {
     console.log({ email, password, role });
     try {
