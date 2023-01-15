@@ -47,10 +47,10 @@ const useStyles: any = makeStyles((theme: Theme) =>
 
 function HelpChat() {
   const [messages, setMessages] = useState([{ from: "Admin", msg: "Welcome to ECOGreen Chat! Please wait for an agent to join your chat." , time: ""}]);
-  const [waiting, setWaiting] = useState(false);
+  const [waiting, setWaiting] = useState(true);
 
-  const client = new ChatServiceClient("http://localhost:8081");
-
+  const client = new ChatServiceClient("http://grpcproxy.duckdns.net:8081");
+  //const client = new ChatServiceClient("http://localhost:8081");
   const loggedInUser = getLoggedInUser();
   const user = new User();
   ////////TODO: UNCOMMENT THIS FOR PRODUCTION
@@ -66,7 +66,8 @@ function HelpChat() {
 
     const receiveMessageStream = client.subscribeToMessages(joinRequest);
     console.log("Subbed to receiveMessageStream");
-
+    receiveMessageStream.on('end',()=> {console.log("Ended chat stream");});
+    receiveMessageStream.on('status',(status)=> {console.log("Chat stream status: " + status);});
     receiveMessageStream.on("data", (message: ChatMessage) => {
       //First message gives us the room, and indicates that we are connected to the room
       if (waiting) {

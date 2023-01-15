@@ -54,7 +54,6 @@ export class gRPCService implements ChatService {
     
     
     roomSubjects.forEach(subject => {
-      console.log(subject);
       subject.next(chatMessage);
     });
 
@@ -65,7 +64,7 @@ export class gRPCService implements ChatService {
   subscribeToMessages(joinRequest: JoinRequest): Observable<ChatMessage> {
     console.log("Subscribing to messages")
     let subject: Subject<ChatMessage>;
-    let observable: Observable<ChatMessage>;
+    let observable: Observable<ChatMessage> = null;
 
     if(this.observableForEndpoint.has(joinRequest.id)){ 
       //The client is already subscribed to this endpoint
@@ -75,8 +74,8 @@ export class gRPCService implements ChatService {
       //The client is not subscribed to this endpoint, so we create a new subject and observable
       console.log("Creating subscription for new client")
       subject = new Subject<ChatMessage>();
-      observable = new Observable<ChatMessage>();
-      new Observable<ChatMessage>();
+      observable = subject.asObservable();
+      
       this.subjectForEndpoint.set(joinRequest.id, subject);
       this.observableForEndpoint.set(joinRequest.id, observable);
     }
@@ -101,10 +100,10 @@ export class gRPCService implements ChatService {
     }
 
     this.peopleInService.push(joinRequest.id);
-    //call the updateRooms function after 1 second
+    //call the updateRooms function after 2 seconds, a correct soluition would be to have a separate function that the client calls once it has connected to the server, that in turn calls the updateRooms function
     setTimeout(()=>{
       this.updateRooms();
-    },1000);
+    },2000);
     return observable;
   }
 

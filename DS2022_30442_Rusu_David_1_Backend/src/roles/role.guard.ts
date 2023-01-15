@@ -11,7 +11,7 @@ const RoleGuard = (role: Role): Type<CanActivate> => {
  
       const request = context.switchToHttp().getRequest<RequestWithUser>();
       const user = request.user;
-      console.log("USER ROLE IS: " + user.role);
+      //console.log("USER ROLE IS: " + user.role);
 
       if(Role.Admin === user.role) {
         return true;

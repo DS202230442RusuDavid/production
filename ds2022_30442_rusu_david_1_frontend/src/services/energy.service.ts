@@ -1,8 +1,8 @@
 import axios from "axios";
 import Energy from "../dtos/energy.dto";
 
-//const ip = process.env.backendIP || "http://int32.duckdns.org:3000";
-const ip = "http://localhost:3000"
+const ip = process.env.backendIP || "http://int32.duckdns.org:3000";
+// const ip = "http://localhost:3000"
 
 export const getEnergy = async (id: number) => {
     var config = {
