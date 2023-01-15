@@ -6,6 +6,9 @@ import DeviceModule from './device/device.module';
 import EnergyModule from './energy/energy.modules';
 import { RabbitModule } from './rabbitMQ/mq.model';
 import { AlertModule } from './websocket/alert.module';
+import { gRPCModule } from './gRPC/gRPC.module';
+import { OgmaModule } from '@ogma/nestjs-module/src/ogma.module';
+
 @Module({
   imports: [
     DBModule,
@@ -15,6 +18,8 @@ import { AlertModule } from './websocket/alert.module';
     EnergyModule,
     RabbitModule,
     AlertModule,
+    OgmaModule,
+    gRPCModule,
   ],
   controllers: [],
   providers: [],

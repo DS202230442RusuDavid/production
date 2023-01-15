@@ -1,0 +1,139 @@
+syntax = "proto3";
+
+//import "google/protobuf/timestamp.proto";
+//import "google/protobuf/empty.proto";
+
+package SPER_CA_MERGE;
+
+//option java_package = "com.example.SPER_CA_MERGE";
+option java_multiple_files = true;
+
+////service ChatService {
+////    rpc InitiateChat(InitiateChatRequest) returns (InitiateChatResponse) {};
+////    rpc SendMessage(MessageRequest) returns (Empty) {};
+////    rpc UserStream(StreamRequest) returns (stream UserStreamResponse) {};
+////    rpc ChatStream(StreamRequest) returns (stream StreamMessage) {};
+////}
+////
+////
+////message InitiateChatRequest {
+////    string name = 1;
+////    string avatar_url = 2;
+////}
+////
+////message InitiateChatResponse {
+////    string userId = 1;
+////}
+////
+////message MessageRequest {
+////    string userId = 1;
+////    string message = 2;
+////}
+////
+////message StreamRequest {
+////    string userId = 1;
+////}
+////
+////message UserStreamResponse {
+////    repeated User user = 1;
+////}
+////
+enum status {
+    UNKNOWN = 0;
+    ONLINE = 1;
+    OFFLINE = 2;
+}
+
+message StreamMessage {
+    string userId = 1;
+    string message = 2;
+}
+
+message Empty {
+}
+
+message ChatMessage {
+    string sender = 1;
+    string receiver = 2;
+    string message = 3;
+    int64 time = 4;
+}
+
+message User {
+    string id = 1;
+    string username = 2;
+}
+
+
+message UserList {
+    repeated User users = 1;
+}
+
+message JoinResponse {
+    int32 responseStatusCode = 1;
+    string message = 2;
+    int64 timestamp = 3;
+}
+
+message ReceiveMessageRequest {
+    string userToReceiveMessages = 1;
+}
+
+message SendMessageResponse {
+    string sender = 1;
+    string receiver = 2;
+    string message = 3;
+    string seen = 4;
+    int64 timestamp = 5;
+}
+
+message MessagesList {
+    repeated ChatMessage chatMessages = 1;
+}
+
+message ConversationRequest {
+    string participantOne = 1;
+    string participantTwo = 2;
+}
+
+service ChatService {
+    rpc join(User) returns (JoinResponse) {}
+    rpc sendMessage(ChatMessage) returns (SendMessageResponse) {}
+    rpc receiveMessage(ReceiveMessageRequest) returns (stream ChatMessage) {}
+    rpc getAllUsers(Empty) returns (UserList) {}
+    rpc getMessagesForUser(User) returns (MessagesList) {}
+    rpc getConversation(ConversationRequest) returns (MessagesList) {}
+}
+
+
+//service ChatService {
+    // Server streaming call
+    //rpc joinChat (SubscriptionRequest) returns (stream Message);
+
+    //rpc leaveChat (UnsubscriptionRequest) returns (Message);
+
+    // Unary calls
+    //rpc SendMessage (MessageRequest) returns (Message);
+
+//}
+//message TestMessge {
+  //  string test = 1;
+//}
+//message Message {
+ //   string message = 1;
+  //  string username = 2;
+   // int64 timestamp = 3;
+//}
+
+//message MessageRequest {
+//    string message = 1;
+//    string username = 2;
+//}
+
+//message SubscriptionRequest {
+//    string username = 1;
+//}
+
+//message UnsubscriptionRequest {
+//    string username = 1;
+//}

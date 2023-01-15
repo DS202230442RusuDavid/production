@@ -20,8 +20,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     // "outDir": "./app/dist",
+    // "typeRoots": ["src/types/chat_pb_service.d.ts", "node_modules/@types"]
   },
   "include": [
-    "src"
-  ]
+    "src" ],
 }
