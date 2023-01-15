@@ -46,11 +46,12 @@ const useStyles: any = makeStyles((theme: Theme) =>
 );
 
 function HelpChat() {
-  const [messages, setMessages] = useState([{ from: "Admin", msg: "Welcome to ECOGreen Chat! Please wait for an agent to join your chat." , time: ""}]);
+  const [messages, setMessages] = useState([{ from: "Bot", msg: "Welcome to ECOGreen Chat! Please wait for an agent to join your chat." , time: ""}]);
   const [waiting, setWaiting] = useState(true);
+  const [typing, setTyping] = useState(false);
 
-  const client = new ChatServiceClient("http://grpcproxy.duckdns.net:8081");
-  //const client = new ChatServiceClient("http://localhost:8081");
+  // const client = new ChatServiceClient("http://grpcproxy.duckdns.net:8081");
+  const client = new ChatServiceClient("http://localhost:8081");
   const loggedInUser = getLoggedInUser();
   const user = new User();
   ////////TODO: UNCOMMENT THIS FOR PRODUCTION
@@ -69,12 +70,32 @@ function HelpChat() {
     receiveMessageStream.on('end',()=> {console.log("Ended chat stream");});
     receiveMessageStream.on('status',(status)=> {console.log("Chat stream status: " + status);});
     receiveMessageStream.on("data", (message: ChatMessage) => {
+      console.log(message);
       //First message gives us the room, and indicates that we are connected to the room
       if (waiting) {
         setWaiting(false);
         user.setRoom(message.getUser()?.getRoom() || -1);
+        console.log("Joined room: " + user.getRoom());
       }
-      console.log(message);
+      
+      //Check if message is info message
+      if (message.getUser()?.getRole() == "Info") {
+        switch (message.getMsg()) {
+          case "typing":
+            if(message.getUser()?.getId() != user.getId()) {
+                setTyping(true);
+                console.log("typing TRUE");
+                setTimeout(() => {
+                  setTyping(false);
+                }, 1000);
+            }
+            break;
+          case "reconnect":
+            //user.setRoom(message.getUser()?.getRoom() || -1);
+            //console.log("Reconnected to room: " + message.getUser()?.getRoom());
+        }
+        return;
+      }
       // Add the new message to the list of messages
       setMessages(messages => [
         ...messages,
@@ -86,6 +107,25 @@ function HelpChat() {
       ]);
     });
   },[]);
+
+  const handleTyping = (typing: boolean) => {
+    //setTyping(typing);
+    const chatMessage = new ChatMessage();
+    const buffer = new User();
+    buffer.setRole("Info");
+    buffer.setRoom(user.getRoom());
+    buffer.setId(user.getId());
+
+    chatMessage.setUser(buffer);
+    chatMessage.setMsg(typing ? "typing" : "not typing");
+    chatMessage.setTime(new Date().toISOString());
+
+    client.sendMessage(chatMessage, err => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
 
   const handleSendMessage = (message: string) => {
     // Create a new ChatMessage and send it to the server
@@ -110,12 +150,12 @@ function HelpChat() {
           <Paper className={classes.paper}>
             <Paper id="style-1" className={classes.messagesBody}>
               {messages.map((message, index) => {
-                if (message.from === "Admin") {
+                if (message.from !== loggedInUser.role.toString()) {
                   return <MessageLeft
                     message={message.msg}
                     timestamp={''}
                     photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                    displayName="Admin"
+                    displayName={message.from}
                     avatarDisp={true}
                   />
                 } else {
@@ -123,16 +163,18 @@ function HelpChat() {
                     message={message.msg}
                     timestamp=""
                     photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-                    displayName={message.from}
+                    
+                    displayName={loggedInUser.role}
                     avatarDisp={true}
                   />
                 }
               })}
             </Paper>
+            {typing ? <div>typing...</div> : null}
             {waiting ?
               <div>Please wait for an {user.getRole() == "User"?"admin":'user'} to join.</div>
               :
-              <ChatInput onSubmit={handleSendMessage} />}
+              <ChatInput onSubmit={handleSendMessage} onTyping={handleTyping} />}
           </Paper>
         </div>
       </div>

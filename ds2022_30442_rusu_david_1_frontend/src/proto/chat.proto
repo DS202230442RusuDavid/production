@@ -25,4 +25,5 @@ service ChatService {
     rpc chatEnd(User) returns (Empty) {}
     rpc sendMessage(ChatMessage) returns (Empty) {}
     rpc subscribeToMessages(JoinRequest) returns (stream ChatMessage) {}
+    rpc isTyping(User) returns (Empty) {}
 }

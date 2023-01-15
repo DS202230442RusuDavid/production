@@ -31,11 +31,21 @@ type ChatServicesubscribeToMessages = {
   readonly responseType: typeof chat_pb.ChatMessage;
 };
 
+type ChatServiceisTyping = {
+  readonly methodName: string;
+  readonly service: typeof ChatService;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof chat_pb.User;
+  readonly responseType: typeof chat_pb.Empty;
+};
+
 export class ChatService {
   static readonly serviceName: string;
   static readonly chatEnd: ChatServicechatEnd;
   static readonly sendMessage: ChatServicesendMessage;
   static readonly subscribeToMessages: ChatServicesubscribeToMessages;
+  static readonly isTyping: ChatServiceisTyping;
 }
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
@@ -89,5 +99,14 @@ export class ChatServiceClient {
     callback: (error: ServiceError|null, responseMessage: chat_pb.Empty|null) => void
   ): UnaryResponse;
   subscribeToMessages(requestMessage: chat_pb.JoinRequest, metadata?: grpc.Metadata): ResponseStream<chat_pb.ChatMessage>;
+  isTyping(
+    requestMessage: chat_pb.User,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: chat_pb.Empty|null) => void
+  ): UnaryResponse;
+  isTyping(
+    requestMessage: chat_pb.User,
+    callback: (error: ServiceError|null, responseMessage: chat_pb.Empty|null) => void
+  ): UnaryResponse;
 }
 

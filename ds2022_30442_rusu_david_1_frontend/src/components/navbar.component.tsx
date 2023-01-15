@@ -21,7 +21,8 @@ function NavBar() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           ECOGreen
         </Typography>
-        {user.role === Role.Admin && <Button color="inherit" href="/home" style={{paddingRight:"5px"}}>Home </Button>}
+        {user.id?<Button color="inherit" href="/home" style={{paddingRight:"5px"}}>Home </Button>:''}
+        {user.id?<Button color="inherit" href="/help" style={{paddingRight:"5px"}}>Help Chat </Button>:''}
         {user.role === Role.Admin && <Button color="inherit" href="/administration" style={{paddingRight:"10px"}}>Administration </Button>}
         {user.id?<Button color="inherit" onClick={handleLogout}>Logout</Button>:''}
       </Toolbar>

@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
     onSubmit: (text: string) => void;
+    onTyping: (typing: boolean) => void;
 }
 
 export const ChatInput = (props: Props) => {
@@ -37,7 +38,7 @@ export const ChatInput = (props: Props) => {
                 label="Type your message here"
                 className={classes.wrapText}
                 value={value}
-                onChange={(e) => setValue(e.target.value)}
+                onChange={(e) => {setValue(e.target.value); props.onTyping(true)}}
             />
             <Button onClick={()=>{
                 props.onSubmit(value);

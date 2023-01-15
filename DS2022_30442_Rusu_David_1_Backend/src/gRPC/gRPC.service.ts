@@ -7,6 +7,9 @@ import Role from 'src/roles/role.enum';
 
 @Controller('chat')
 export class gRPCService implements ChatService {
+  isTyping(user: User): Empty {
+    throw new Error('Method not implemented.');
+  }
 
   usersQueue:[{
     id: string,
@@ -45,6 +48,7 @@ export class gRPCService implements ChatService {
     
     console.log(chatMessage)
     //Get the room
+    console.log("Sending message to room: " + chatMessage.user.room)
     const roomSubjects = this.rooms.get(chatMessage.user.room.toString());
 
     if(!roomSubjects){
@@ -70,6 +74,18 @@ export class gRPCService implements ChatService {
       //The client is already subscribed to this endpoint
       console.log("Client already subscribed")
       observable = this.observableForEndpoint.get(joinRequest.id)
+      subject = this.subjectForEndpoint.get(joinRequest.id)
+
+      //send an empty message to the client to notify that the connection was successful after 2 seconds using the subject of the client
+      setTimeout(()=>{
+        const user : User = {
+          id: joinRequest.id,
+          role: "Info",
+          room: -1
+        }
+        subject.next({user: user, msg: "reconnect", time: new Date().toLocaleTimeString()} as ChatMessage);
+      },2000)
+
     }else{
       //The client is not subscribed to this endpoint, so we create a new subject and observable
       console.log("Creating subscription for new client")
@@ -103,7 +119,7 @@ export class gRPCService implements ChatService {
     //call the updateRooms function after 2 seconds, a correct soluition would be to have a separate function that the client calls once it has connected to the server, that in turn calls the updateRooms function
     setTimeout(()=>{
       this.updateRooms();
-    },2000);
+    },1000);
     return observable;
   }
 
@@ -114,7 +130,7 @@ export class gRPCService implements ChatService {
     if(this.adminsQueue.length > 0 && this.usersQueue.length > 0){
       const admin = this.adminsQueue.shift();
       const user = this.usersQueue.shift();
-      // const room = Math.floor(Math.random() * 100000);
+      //const room = user.id;
       const room = -1;
       this.rooms.set(room.toString(), [admin.subject, user.subject]);
 
@@ -126,8 +142,8 @@ export class gRPCService implements ChatService {
       admin.subject.next({
         user: {
           id: admin.id,
-          role: "admin",
-          room: room
+          role: "Bot",
+          room: Number(room)
         },
         msg: "You are now connected to a user",
         time: new Date().toISOString()
@@ -136,8 +152,8 @@ export class gRPCService implements ChatService {
       user.subject.next({
         user: {
           id: user.id,
-          role: "user",
-          room: room
+          role: "Bot",
+          room: Number(room)
         },
         msg: "You are now connected to an admin",
         time: new Date().toISOString()

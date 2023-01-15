@@ -4,6 +4,7 @@ export interface ChatService {
   chatEnd(user: User): Empty;
   sendMessage(chatMessage: ChatMessage): Empty;
   subscribeToMessages(joinRequest: JoinRequest): Observable<ChatMessage>;
+  isTyping(user: User): Empty;
 }
 
 export interface ChatMessage {
